@@ -17,6 +17,7 @@ const init = () => {
     console.log(firebase.app().name);
       
 };
+
 window.onload=init;
 
 click= async ()=>{
@@ -31,3 +32,18 @@ click= async ()=>{
       const res = await db.collection('users').doc('LA').set(data);
       
 }
+ firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      console.log("user", user);
+      model.currentUser = {
+        email: user.email,
+        displayName: user.displayName
+      }
+      view.setActiveScreen('homeScreen');
+
+    } else {
+
+      view.setActiveScreen("loginScreen")
+    }
+  });
+};
